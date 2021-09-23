@@ -60,9 +60,8 @@ def test_guest_cant_see_success_message_after_adding_product_to_basket(browser, 
     page.add_to_basket()
     page.should_not_be_success_message()
 
-
-def test_guest_cant_see_success_message(browser):
-    link = product_base_link
+@pytest.mark.parametrize('link', [product_base_link, ])
+def test_guest_cant_see_success_message(browser, link):
     page = ProductPage(browser, link)
     page.open()
     page.should_not_be_success_message()
