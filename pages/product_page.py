@@ -32,4 +32,14 @@ class ProductPage(BasePage):
     def sould_be_correct_price(self, msg_price, price):
         assert msg_price == price, f"'{price}' price added, but '{msg_price}' in basket"
 
+    def should_be_success_message(self):
+        assert not self.is_element_present(*ProductPageLocators.SUCCESS_MESSAGE),\
+            "Success message is NOT presented"
     
+    def should_not_be_success_message(self):
+        assert self.is_not_element_present(*ProductPageLocators.SUCCESS_MESSAGE), \
+            "Success message is presented, but should NOT be"
+    
+    def should_disapear_success_message(self):
+        assert self.is_disappeared(*ProductPageLocators.SUCCESS_MESSAGE), \
+            "Success message is NOT desapeaded, but should be"

@@ -1,19 +1,16 @@
 from .base_page import BasePage
-# from .login_page import LoginPage
 
 from .locators import MainPageLocators
 
 from selenium.webdriver.common.by import By
 
 class MainPage(BasePage): 
-    def go_to_login_page(self):
-        login_link = self.browser.find_element(*MainPageLocators.LOGIN_LINK)
-        login_link.click()
-        # вариант перехода явный, путем инициализации и возвращения объекта страницы
-        # требует импорта класса страницы - больше риск перекресных импортов при усложнении
-        # return LoginPage(browser=self.browser, url=self.browser.current_url) 
+    def __init__(self, *args, **kwargs):
+        """
+        пока специфических методов нет, а страница логина доступна на 
+        всех страницах, поэтому переход на нее перенесен в BasePage
+        """
+        super(MainPage, self).__init__(*args, **kwargs)
 
-    def should_be_login_link(self):
-        assert self.is_element_present(*MainPageLocators.LOGIN_LINK), "Login link is not presented"
 
     
