@@ -10,14 +10,15 @@ class ProductPage(BasePage):
     def _get_price(self):
         return self.browser.find_element(*ProductPageLocators.PRODUCT_PRICE).text
 
-    def add_to_basket(self):
+    def add_to_basket(self, capcha=True):
         title = self._get_title()
         price = self._get_price()
 
         button = self.browser.find_element(*ProductPageLocators.BTN_ADD_TO_BASKET)
         button.click()
 
-        self.solve_quiz_and_get_code()
+        if capcha:
+            self.solve_quiz_and_get_code()
         
         msg_title, _, msg_price = (msg.text for msg in self.browser.find_elements(*ProductPageLocators.MESSAGES))
         print(f"{title=}, {price=}")

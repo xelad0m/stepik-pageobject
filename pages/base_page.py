@@ -1,8 +1,6 @@
 import math, time
 
 from .locators import BasePageLocators
-# from .login_page import LoginPage
-
 
 from selenium.webdriver.support.ui import WebDriverWait
 from selenium.webdriver.support import expected_conditions as EC
@@ -28,18 +26,25 @@ class BasePage():
         return True
     
     def go_to_login_page(self):
+        """
+        Для явного варианта перехода, путем инициализации и возвращения объекта страницы
+        требует импорта класса страницы (from .login_page import LoginPage) +
+        return LoginPage(browser=self.browser, url=self.browser.current_url) 
+        - но так больше риск перекресных импортов при усложнении
+        """
         login_link = self.browser.find_element(*BasePageLocators.LOGIN_LINK)
         login_link.click()
-        # явный вариант перехода, путем инициализации и возвращения объекта страницы
-        # требует импорта класса страницы - больше риск перекресных импортов при усложнении
-        # return LoginPage(browser=self.browser, url=self.browser.current_url) 
-
+        
     def go_to_basket_page(self):
         basket_link = self.browser.find_element(*BasePageLocators.BASKET_LINK)
         basket_link.click()
 
     def should_be_login_link(self):
         assert self.is_element_present(*BasePageLocators.LOGIN_LINK), "Login link is not presented"
+
+    def should_be_authorized_user(self):
+        assert self.is_element_present(*BasePageLocators.USER_ICON), "User icon is not presented," \
+                                                                 " probably unauthorised user"
 
     def solve_quiz_and_get_code(self):
         alert = self.browser.switch_to.alert
@@ -78,3 +83,4 @@ class BasePage():
             return False
 
         return True
+    
