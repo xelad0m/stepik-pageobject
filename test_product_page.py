@@ -67,7 +67,7 @@ def test_guest_cant_see_success_message(browser, link):
     page.should_not_be_success_message()
 
 
-@pytest.mark.xfail(reason="succes message has no disapear behavoir")
+@pytest.mark.xfail(reason="succes message has no disapear behavior")
 @pytest.mark.parametrize('link', [product_base_link, ])
 def test_message_disappeared_after_adding_product_to_basket(browser, link):
     page = ProductPage(browser, link)
